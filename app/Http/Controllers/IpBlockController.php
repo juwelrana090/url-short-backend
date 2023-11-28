@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\URLShorts;
+use App\Models\IpBlock;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class URLShortsController extends Controller
+class IpBlockController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class URLShortsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\URLShorts  $uRLShorts
+     * @param  \App\Models\IpBlock  $ipBlock
      * @return \Illuminate\Http\Response
      */
-    public function show(URLShorts $uRLShorts)
+    public function show(IpBlock $ipBlock)
     {
         //
     }
@@ -53,10 +53,10 @@ class URLShortsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\URLShorts  $uRLShorts
+     * @param  \App\Models\IpBlock  $ipBlock
      * @return \Illuminate\Http\Response
      */
-    public function edit(URLShorts $uRLShorts)
+    public function edit(IpBlock $ipBlock)
     {
         //
     }
@@ -65,10 +65,10 @@ class URLShortsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\URLShorts  $uRLShorts
+     * @param  \App\Models\IpBlock  $ipBlock
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, URLShorts $uRLShorts)
+    public function update(Request $request, IpBlock $ipBlock)
     {
         //
     }
@@ -76,10 +76,10 @@ class URLShortsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\URLShorts  $uRLShorts
+     * @param  \App\Models\IpBlock  $ipBlock
      * @return \Illuminate\Http\Response
      */
-    public function destroy(URLShorts $uRLShorts)
+    public function destroy(IpBlock $ipBlock)
     {
         //
     }

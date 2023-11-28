@@ -22,15 +22,15 @@ return new class extends Migration
             $table->longText('url');
             $table->longText('referer')->nullable();
             $table->longText('country')->nullable();
-            $table->longText('device');
-            $table->longText('operating');
-            $table->longText('browser');
-            $table->longText('browser_version');
-            $table->longText('time_zone');
-            $table->longText('asn');
-            $table->longText('asn_org');
-            $table->longText('view_at');
-            $table->longText('date_at');
+            $table->longText('device')->nullable();
+            $table->longText('operating')->nullable();
+            $table->longText('browser')->nullable();
+            $table->longText('browser_version')->nullable();
+            $table->longText('time_zone')->nullable();
+            $table->longText('asn')->nullable();
+            $table->longText('asn_org')->nullable();
+            $table->longText('view_at')->nullable();
+            $table->longText('date_at')->nullable();
             $table->timestamps();
         });
     }
