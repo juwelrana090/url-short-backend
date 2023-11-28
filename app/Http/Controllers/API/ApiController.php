@@ -94,6 +94,7 @@ class ApiController extends Controller
             'date_at' => $date_at,
         ];
 
+        $view  = Views::where('post_id', "=", $post_id)->where('user_ip', "=", $user_ip)->where('date_at', "=", $date_at)->first();
         $views = Views::where('post_id', "=", $post_id)->where('user_ip', "=", $user_ip)->where('date_at', "=", $date_at)->orderBy('id', 'asc')->get();
         $IpBlock = IpBlock::where('user_ip', "=", $user_ip)->first();
 
@@ -111,44 +112,44 @@ class ApiController extends Controller
                     'message' => 'Your IP address has been blocked. Please try again later.',
                 ], 400);
             } else {
-                $blocks = IpBlock::where('user_ip', "=", $user_ip)->get();
-                foreach ($blocks as $block) {
-                    $del_view = IpBlock::where('id', "=", $block->id)->delete();
-                }
+                $del_block = IpBlock::where('id', "=", $IpBlock->id)->delete();
             }
         }
 
-        $viewCount = $views->count();
 
-        if ($viewCount >= 3 && $views[0]->view_at > $timeNow) {
-            $user_block = [
-                'user_ip' => $user_ip,
-                'block' => true,
-                'block_at' => $nextBlock,
-            ];
+        if (!empty($view)) {
+            $viewCount = $views->count();
+            if ($viewCount >= 3 && $views[0]->view_at > $timeNow) {
+                $user_block = [
+                    'user_ip' => $user_ip,
+                    'block' => true,
+                    'block_at' => $nextBlock,
+                ];
 
-            $ipBlock = IpBlock::create($user_block);
+                $ipBlock = IpBlock::create($user_block);
 
-            return response()->json([
-                'success' => false,
-                'message' => 'Your limit has been reached.Please try again later.',
-            ], 400);
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Your limit has been reached.Please try again later.',
+                ], 400);
+            }
+        } else {
+            $viewCount = 0;
         }
+
+        $ViewsCreate = Views::create($visitor);
+        $new_views = Views::where('post_id', "=", $post_id)->where('user_ip', "=", $user_ip)->where('date_at', "=", $date_at)->orderBy('id', 'asc')->get();
+        $ViewsUpdate = Views::where('id', $new_views[0]->id)->update([
+            'view_at' => $timestamp,
+        ]);
 
         $UpdateShort = Shorts::where('id', $post_id)->update([
             'views' => $viewCount,
         ]);
 
-        $ViewsCreate = Views::create($visitor);
-
-        $ViewsUpdate = Views::where('id', $views[0]->id)->update([
-            'view_at' => $timestamp,
-        ]);
-
         return response()->json([
             'success' => true,
             'short' => $short,
-            'IpBlock' => $IpBlock,
         ]);
 
     }
