@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -66,6 +67,7 @@ class UserController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Logged in successfully',
+            'user' => Auth::user(),
             'access_token' => $token,
             'token_type' => 'Bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
